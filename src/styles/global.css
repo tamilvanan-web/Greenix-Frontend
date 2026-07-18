@@ -1,0 +1,108 @@
+@import './variables.css';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary);
+  transition: color var(--transition-speed);
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: var(--border-radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Utility Layout Classes */
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: var(--bg-main);
+  overflow-y: auto;
+  margin-left: 260px; /* Sidebar width spacer */
+  transition: margin var(--transition-speed) ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 1.5rem;
+    padding-top: 5rem; /* Space for mobile navbar */
+  }
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Spinner Loader */
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-left-color: var(--primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
