@@ -500,6 +500,8 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   }
 
+
+
   .mobile-overlay {
     display: block;
     position: fixed;
@@ -507,6 +509,30 @@
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(2px);
     z-index: 999;
+  }
+
+}
+
+/* ===========================
+   Force-scroll any un-wrapped table on mobile
+=========================== */
+
+@media (max-width: 768px) {
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  table thead,
+  table tbody,
+  table tr {
+    display: table;
+    width: 100%;
+    table-layout: auto;
   }
 
 }
