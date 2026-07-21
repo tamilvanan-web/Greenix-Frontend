@@ -461,10 +461,20 @@
 
 .login-footer a:hover { text-decoration: underline; }
 
-@media (max-width: 900px) {
-  .login-form-panel { padding: 2.25rem 1.25rem; }
+@media (max-width:768px){
+
+.login-container{
+    flex-direction:column;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .login-submit { transition: none; }
+.login-form-panel{
+    width:100%;
+    padding:20px;
+}
+
+.login-card{
+    width:100%;
+    max-width:100%;
+}
+
 }

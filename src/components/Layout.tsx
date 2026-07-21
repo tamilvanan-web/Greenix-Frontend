@@ -21,12 +21,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
 
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogout = () => {
     setShowLogoutModal(true);
   };
 
   const confirmLogout = () => {
+    setSidebarOpen(false);
     logout();
     navigate('/login');
   };
@@ -52,11 +54,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <>
+      {/* Mobile hamburger menu button */}
+      <button
+        className="menu-btn"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      >
+        ☰
+      </button>
+
       <div className="layout-container">
 
         {/* Sidebar */}
-        <aside className="sidebar">
-
+        <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
           <div className="sidebar-logo">
             <Leaf size={24} color="#7fd8a0" strokeWidth={2.2} />
             <span>Greenix</span>
@@ -69,6 +78,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <li className="sidebar-item">
                 <NavLink
                   to={getDashboardPath()}
+                  onClick={() => setSidebarOpen(false)}
                   className={({ isActive }) =>
                     isActive ? 'active' : ''
                   }
@@ -84,6 +94,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <li className="sidebar-item">
                     <NavLink
                       to="/admin/complaints"
+                      onClick={() => setSidebarOpen(false)}
                       className={({ isActive }) =>
                         isActive ? 'active' : ''
                       }
@@ -96,6 +107,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <li className="sidebar-item">
                     <NavLink
                       to="/admin/users"
+                      onClick={() => setSidebarOpen(false)}
                       className={({ isActive }) =>
                         isActive ? 'active' : ''
                       }
@@ -111,6 +123,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <li className="sidebar-item">
                 <NavLink
                   to="/profile"
+                  onClick={() => setSidebarOpen(false)}
                   className={({ isActive }) =>
                     isActive ? 'active' : ''
                   }
@@ -182,6 +195,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
         </aside>
 
+        {sidebarOpen && (
+          <div
+            className="mobile-overlay"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
         {/* Main Content */}
         <main className="main-content">
           {children}
@@ -225,6 +245,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               >
                 Yes, logout
               </button>
+
             </div>
           </div>
         </div>

@@ -1,108 +1,199 @@
 @import './variables.css';
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* ===========================
+   Global Reset
+=========================== */
+
+*,
+*::before,
+*::after{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-  font-family: var(--font-family-sans);
-  background-color: var(--bg-main);
-  color: var(--text-primary);
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html{
+    scroll-behavior:smooth;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-family-display);
-  font-weight: 600;
-  color: var(--text-primary);
+html,
+body,
+#root{
+    width:100%;
+    min-height:100%;
+    overflow-x:hidden;
 }
 
-a {
-  text-decoration: none;
-  color: var(--primary);
-  transition: color var(--transition-speed);
+body{
+    font-family:var(--font-family-sans);
+    background:var(--bg-main);
+    color:var(--text-primary);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
 }
 
-a:hover {
-  color: var(--primary-hover);
+img{
+    max-width:100%;
+    height:auto;
+    display:block;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+button{
+    cursor:pointer;
+    font-family:inherit;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-main);
+input,
+textarea,
+select{
+    font-family:inherit;
+    width:100%;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--text-muted);
-  border-radius: var(--border-radius-sm);
+/* ===========================
+   Typography
+=========================== */
+
+h1,h2,h3,h4,h5,h6{
+    font-family:var(--font-family-display);
+    font-weight:600;
+    color:var(--text-primary);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
+a{
+    color:var(--primary);
+    text-decoration:none;
+    transition:.3s;
 }
 
-/* Utility Layout Classes */
-.layout-container {
-  display: flex;
-  min-height: 100vh;
+a:hover{
+    color:var(--primary-hover);
 }
 
-.main-content {
-  flex: 1;
-  padding: 2rem;
-  background-color: var(--bg-main);
-  overflow-y: auto;
-  margin-left: 260px; /* Sidebar width spacer */
-  transition: margin var(--transition-speed) ease-in-out;
+/* ===========================
+   Scrollbar
+=========================== */
+
+::-webkit-scrollbar{
+    width:8px;
+    height:8px;
 }
 
-@media (max-width: 768px) {
-  .main-content {
-    margin-left: 0;
-    padding: 1.5rem;
-    padding-top: 5rem; /* Space for mobile navbar */
-  }
+::-webkit-scrollbar-track{
+    background:var(--bg-main);
 }
 
-.flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+::-webkit-scrollbar-thumb{
+    background:var(--text-muted);
+    border-radius:10px;
 }
 
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+::-webkit-scrollbar-thumb:hover{
+    background:var(--text-secondary);
 }
 
-/* Spinner Loader */
-.spinner {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border-left-color: var(--primary);
-  animation: spin 1s linear infinite;
+/* ===========================
+   Layout
+=========================== */
+
+.layout-container{
+    display:flex;
+    min-height:100vh;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.main-content{
+    margin-left:260px;
+    width:calc(100% - 260px);
+    min-height:100vh;
+    padding:20px;
+    transition:.3s;
 }
 
-.loading-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 300px;
+/* ===========================
+   Utility Classes
+=========================== */
+
+.flex-between{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.flex-center{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ===========================
+   Loading Spinner
+=========================== */
+
+.loading-wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:300px;
+}
+
+.spinner{
+    width:40px;
+    height:40px;
+    border:4px solid rgba(0,0,0,.1);
+    border-top-color:var(--primary);
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* ===========================
+   Tablet
+=========================== */
+
+@media (max-width:992px){
+
+    .main-content{
+        padding:18px;
+    }
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width:768px){
+
+    body{
+        font-size:15px;
+    }
+
+    .main-content{
+        width:100%;
+        margin-left:0;
+        padding:70px 15px 20px;
+    }
+
+}
+
+/* ===========================
+   Small Mobile
+=========================== */
+
+@media (max-width:480px){
+
+    body{
+        font-size:14px;
+    }
+
+    .main-content{
+        padding:65px 12px 15px;
+    }
+
 }

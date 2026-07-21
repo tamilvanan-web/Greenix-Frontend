@@ -66,19 +66,22 @@
 .form-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
 
 /* Sidebar Layout */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 260px;
-  background: var(--auth-gradient);
-  color: white;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  z-index: var(--z-sidebar);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+.sidebar{
+
+    width:260px;
+    height:100vh;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    transition:.3s;
+
+    overflow-y:auto;
+
+    z-index:1000;
+
 }
 
 .sidebar-logo {
@@ -363,4 +366,137 @@
   text-align: center;
   margin-top: 0.25rem;
   text-transform: capitalize;
+}
+
+
+/* ===================================
+   RESPONSIVE DESIGN
+=================================== */
+
+.menu-btn {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 2000;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary);
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,.2);
+}
+
+.mobile-overlay {
+    display: none;
+}
+
+@media (max-width: 992px) {
+
+    .detail-grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-summary-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .menu-btn{
+        display:block;
+    }
+
+    .sidebar{
+        width:260px;
+        left:-260px;
+        top:0;
+        height:100vh;
+        position:fixed;
+        transition:left .3s ease;
+        z-index:1500;
+    }
+
+    .sidebar.open{
+        left:0;
+    }
+
+    .mobile-overlay{
+        display:block;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,.45);
+        z-index:1400;
+    }
+
+    .modal-content{
+        max-width:95%;
+        padding:20px;
+    }
+
+    .modal-footer{
+        flex-direction:column;
+    }
+
+    .modal-footer .btn{
+        width:100%;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    .custom-table{
+        min-width:700px;
+    }
+
+    .table-container{
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+    }
+
+    .attachment-list{
+        flex-direction:column;
+    }
+
+    .attachment-thumb{
+        width:100%;
+        height:auto;
+    }
+
+}
+
+@media (max-width:480px){
+
+    .modal-content{
+        padding:15px;
+    }
+
+    .detail-value-lg{
+        font-size:1rem;
+    }
+
+    .detail-section-title{
+        font-size:.95rem;
+    }
+
+    .badge{
+        font-size:.7rem;
+    }
+
+    .btn{
+        padding:.75rem;
+        font-size:.85rem;
+    }
+
 }
