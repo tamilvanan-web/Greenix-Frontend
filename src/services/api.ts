@@ -1,20 +1,22 @@
-import axios from 'axios';
+import axios from "axios";
 
-// Create Axios instance with baseURL mapped to Vite proxy prefix
+// Create Axios instance
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
-// Request Interceptor: Attach JWT Access Token to headers
+// Attach JWT token to every request
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
+
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -31,17 +33,17 @@ const processQueue = (error: any, token: string | null = null) => {
       prom.reject(error);
     }
   });
+
   failedQueue = [];
 };
 
-// Response Interceptor: Catch 401s and attempt refresh token rotation
 api.interceptors.response.use(
   (response) => response,
+
   async (error) => {
     const originalRequest = error.config;
 
-    // Prevent loop if the refresh request itself fails
-    if (originalRequest.url === '/v1/auth/refresh') {
+    if (originalRequest.url?.includes("/v1/auth/refresh")) {
       isRefreshing = false;
       return Promise.reject(error);
     }
@@ -61,8 +63,8 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      const accessToken = localStorage.getItem('accessToken');
-      const refreshToken = localStorage.getItem('refreshToken');
+      const accessToken = localStorage.getItem("accessToken");
+      const refreshToken = localStorage.getItem("refreshToken");
 
       if (!accessToken || !refreshToken) {
         isRefreshing = false;
@@ -71,21 +73,26 @@ api.interceptors.response.use(
       }
 
       try {
-        // Dispatch refresh token pair request to backend
-        const response = await axios.post('/api/v1/auth/refresh', {
-          accessToken,
-          refreshToken,
-        });
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/v1/auth/refresh`,
+          {
+            accessToken,
+            refreshToken,
+          }
+        );
 
         if (response.data?.success) {
-          const { accessToken: newAccess, refreshToken: newRefresh } = response.data.data;
-          
-          localStorage.setItem('accessToken', newAccess);
-          localStorage.setItem('refreshToken', newRefresh);
+          const {
+            accessToken: newAccess,
+            refreshToken: newRefresh,
+          } = response.data.data;
+
+          localStorage.setItem("accessToken", newAccess);
+          localStorage.setItem("refreshToken", newRefresh);
 
           api.defaults.headers.common.Authorization = `Bearer ${newAccess}`;
           originalRequest.headers.Authorization = `Bearer ${newAccess}`;
-          
+
           processQueue(null, newAccess);
           isRefreshing = false;
 
@@ -95,6 +102,7 @@ api.interceptors.response.use(
         processQueue(refreshError, null);
         isRefreshing = false;
         handleSessionExpired();
+
         return Promise.reject(refreshError);
       }
     }
@@ -104,12 +112,11 @@ api.interceptors.response.use(
 );
 
 function handleSessionExpired() {
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('refreshToken');
-  localStorage.removeItem('user');
-  
-  // Custom event to notify components of authentication termination
-  window.dispatchEvent(new Event('auth-logout'));
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  localStorage.removeItem("user");
+
+  window.dispatchEvent(new Event("auth-logout"));
 }
 
 export default api;
