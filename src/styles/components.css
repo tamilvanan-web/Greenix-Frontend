@@ -536,3 +536,26 @@
   }
 
 }
+/* ===========================
+   Page Title Accent
+=========================== */
+
+.page-title {
+  font-family: var(--font-family-display);
+  font-size: 1.85rem;
+  font-weight: 600;
+  color: var(--gx-forest, #16342a);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.25rem;
+}
+
+.page-title::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 1.6rem;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--leaf, #45a05f) 0%, var(--success, #1f6d45) 100%);
+}

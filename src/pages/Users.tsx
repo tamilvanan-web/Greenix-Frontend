@@ -36,7 +36,7 @@ const loadUsers = async () => {
   return (
     <Layout>
       <div className="dashboard-header">
-        <h1>User Management</h1>
+       <h1 className="page-title">User Management</h1>
         <p>Manage all Greenix users.</p>
       </div>
 
