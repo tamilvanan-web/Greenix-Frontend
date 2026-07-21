@@ -67,26 +67,27 @@
 
 /* Sidebar Layout */
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
 
-    width: 260px;
-    height: 100vh;
+  width: 260px;
+  height: 100vh;
+  flex-shrink: 0;
 
-    background: linear-gradient(180deg, #143d2b, #0d2b1f);
-    color: white;
+  background: linear-gradient(180deg, #143d2b, #0d2b1f);
+  color: white;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    padding: 25px;
+  padding: 25px;
 
-    overflow-y: auto;
+  overflow-y: auto;
 
-    transition: left .3s ease;
+  transition: left .3s ease;
 
-    z-index: 1001;
+  z-index: 1001;
 }
 
 .sidebar-logo {
@@ -373,168 +374,139 @@
   text-transform: capitalize;
 }
 
-
 /* ===================================
    RESPONSIVE DESIGN
 =================================== */
 
+@media (max-width: 992px) {
+
+  .detail-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-summary-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .modal-content {
+    max-width: 95%;
+    padding: 20px;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .custom-table {
+    min-width: 700px;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .attachment-list {
+    flex-direction: column;
+  }
+
+  .attachment-thumb {
+    width: 100%;
+    height: auto;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .modal-content {
+    padding: 15px;
+  }
+
+  .detail-value-lg {
+    font-size: 1rem;
+  }
+
+  .detail-section-title {
+    font-size: .95rem;
+  }
+
+  .badge {
+    font-size: .7rem;
+  }
+
+  .btn {
+    padding: .75rem;
+    font-size: .85rem;
+  }
+
+}
+
 /* ===========================
-   Mobile Menu Button
+   Mobile Nav — Sidebar, Menu Button, Overlay
+   (single source of truth for all three)
 =========================== */
 
 .menu-btn {
-    display: none;
+  display: none;
 }
-
-@media (max-width: 768px) {
-
-    .menu-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        position: fixed;
-        top: 15px;
-        left: 15px;
-
-        width: 50px;
-        height: 50px;
-
-        border: none;
-        border-radius: 10px;
-
-        background: #2f8f52;
-        color: white;
-
-        font-size: 28px;
-        cursor: pointer;
-
-        z-index: 1100;
-
-        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    }
-}
-
-/* ===========================
-   Mobile Overlay
-=========================== */
 
 .mobile-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 1000;
+  display: none;
 }
-
-@media (max-width: 992px) {
-
-    .detail-grid-2 {
-        grid-template-columns: 1fr;
-    }
-
-    .detail-summary-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-
-}
-
-@media (max-width:768px){
-
-    .menu-btn{
-        display:block;
-    }
-
-/* ===========================
-   Mobile Sidebar
-=========================== */
 
 @media (max-width: 768px) {
 
-    .sidebar {
-        left: -260px;
-    }
+  .sidebar {
+    left: -260px;
+  }
 
-    .sidebar.open {
-        left: 0;
-    }
+  .sidebar.open {
+    left: 0;
+    box-shadow: 8px 0 30px rgba(0, 0, 0, 0.35);
+  }
 
-}
+  .menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 10px;
+    background: #2f8f52;
+    color: white;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 1500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
 
-    .sidebar.open{
-        left:0;
-    }
-
-    .mobile-overlay{
-        display:block;
-        position:fixed;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        background:rgba(0,0,0,.45);
-        z-index:1400;
-    }
-
-    .modal-content{
-        max-width:95%;
-        padding:20px;
-    }
-
-    .modal-footer{
-        flex-direction:column;
-    }
-
-    .modal-footer .btn{
-        width:100%;
-    }
-
-    .btn{
-        width:100%;
-    }
-
-    .custom-table{
-        min-width:700px;
-    }
-
-    .table-container{
-        overflow-x:auto;
-        -webkit-overflow-scrolling:touch;
-    }
-
-    .attachment-list{
-        flex-direction:column;
-    }
-
-    .attachment-thumb{
-        width:100%;
-        height:auto;
-    }
-
-}
-
-@media (max-width:480px){
-
-    .modal-content{
-        padding:15px;
-    }
-
-    .detail-value-lg{
-        font-size:1rem;
-    }
-
-    .detail-section-title{
-        font-size:.95rem;
-    }
-
-    .badge{
-        font-size:.7rem;
-    }
-
-    .btn{
-        padding:.75rem;
-        font-size:.85rem;
-    }
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+  }
 
 }
