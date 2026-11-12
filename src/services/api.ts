@@ -1,8 +1,13 @@
 import axios from "axios";
 
 // Create Axios instance
+// const api = axios.create({
+//   baseURL: import.meta.env.VITE_API_URL,
+// Create Axios instance
+const API_BASE_URL = "https://greenix-backend-1.onrender.com/api";
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -74,7 +79,7 @@ api.interceptors.response.use(
 
       try {
         const response = await axios.post(
-          `${import.meta.env.VITE_API_URL}/v1/auth/refresh`,
+          `${API_BASE_URL}/v1/auth/refresh`,
           {
             accessToken,
             refreshToken,
